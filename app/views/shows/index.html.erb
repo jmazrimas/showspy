@@ -23,5 +23,18 @@
 <% end %>
 
 <% if @venues %>
-	<%= @venues.each { |venue| "<p>#{venue}</p>"} %>
+	<table>
+	<tr>
+		<th>Name</td>
+		<th>Address</td>
+		<th>ID</th>
+	</tr>
+	<% @venues.each do |venue| %>
+	<tr>
+		<td><%= venue[:venue_name] %></td>
+		<td><%= venue[:address] %></td>
+		<td><%= venue[:id] %></td>
+	</tr>
+	<% end %>
+	</table>
 <% end %>
