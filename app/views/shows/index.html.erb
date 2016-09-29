@@ -1,4 +1,8 @@
 <h1>ShowSpy</h1>
+
+<% if logged_in? %>
+<p>Hi, <%= current_user.uid %></p>
+<% end %>
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
 <% if @stuff %>
 	<%= @stuff %>

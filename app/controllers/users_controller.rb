@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     else
       @errors = ["Unable to authenticate"]
     end
-    
+
     render 'shows/index'
   end
 
@@ -29,7 +29,6 @@ class UsersController < ApplicationController
   def access_token
     auth_hash.credentials.token
   end
-
 
   def refresh_token
     auth_hash.credentials.refresh_token
