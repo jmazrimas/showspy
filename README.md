@@ -1,1 +1,4 @@
-# showspy
+# ShowSpy
+It's great to discover new bands/artists. I love coming upon a new band because I just happened to catch their show or because they were on a bill of another band I liked. But finding new stuff is work. ShowSpy tries to make it less work.
+
+You probably have certain venues you really like. Either because they're easy to get to, or they have a cheap shot'n'beer combo, or you just really sweat that one bartender (you know the one). ShowSpy lets you specify a venue, then looks at your Spotify listening, and then tries to recommend shows you'll probably like. And just like that, you have an easier way to go check out new live music.
