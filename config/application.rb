@@ -13,5 +13,3 @@ module Showspy
     # -- all .rb files in that directory are automatically loaded.
   end
 end
-
-RSpotify::authenticate(ENV["spotify_key"], ENV["spotify_secret"])
