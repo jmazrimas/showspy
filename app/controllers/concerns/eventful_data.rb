@@ -1,17 +1,27 @@
 module EventfulData
 
 
-  def get_venues
+  def get_venues(location, venue_name)
 
-    api_call("events/search?app_key=#{ENV[eventful_key]}&location=V0-001-001106373-0&date=future&page_size=100")
+    params = {app_key: ENV["eventful_key"], location: location, keywords: venue_name}
+    endpoint = "venues/search"
+
+    venues_raw = JSON.parse(api_call(endpoint, params))['venues']['venue']
+
+    venues = []
+
+    venues_raw.each { |v| venues << v['name']}
+
+    venues
 
   end
 
 
   private
 
-  def api_call(endpoint)
-    uri = URI.parse("http://api.eventful.com/rest/#{endpoint}")
+  def api_call(endpoint,params)
+    uri = URI.parse("http://api.eventful.com/json/#{endpoint}")
+    uri.query = URI.encode_www_form(params)
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
     http.request(request).body

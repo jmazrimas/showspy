@@ -4,6 +4,24 @@
 <p>Hi, <%= current_user.uid %></p>
 <% end %>
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
+
+<br>
+<br>
+
 <% if @stuff %>
 	<%= @stuff %>
+<% end %>
+
+<br>
+
+<%= form_tag(eventful_venues_path, method: "get") do %>
+  <%= label_tag(:venue_name, "Venue Name:") %>
+  <%= text_field_tag(:venue_name) %>
+  <%= label_tag(:location, "Location:") %>
+  <%= text_field_tag(:location) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% if @venues %>
+	<%= @venues.each { |venue| "<p>#{venue}</p>"} %>
 <% end %>

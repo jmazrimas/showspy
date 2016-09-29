@@ -7,7 +7,7 @@ include EventfulData
     if logged_in?
 
       # @stuff = top_artists
-      @stuff = get_venues
+      # @stuff = get_venues('60622','Double Door')
 
     end
 
