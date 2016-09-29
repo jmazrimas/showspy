@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   root 'shows#index'
 
+  get '/auth/spotify/callback', to: 'users#spotify'
+
 end
