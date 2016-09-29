@@ -1,11 +1,24 @@
 class ShowsController < ApplicationController
 include SpotifyData
+include EventfulData
 
   def index
 
-    @stuff = top_artists
+    if logged_in?
+
+      # @stuff = top_artists
+      @stuff = get_venues
+
+    end
 
   end
 
 
 end
+
+
+# app_key=zz4xQx8CgMczb3Gp
+
+# http://api.eventful.com/rest/venues/search?app_key=zz4xQx8CgMczb3Gp&keywords=Double+Door&location=60622
+
+# http://api.eventful.com/rest/events/search?app_key=zz4xQx8CgMczb3Gp&location=V0-001-001106373-0&date=future&page_size=100
