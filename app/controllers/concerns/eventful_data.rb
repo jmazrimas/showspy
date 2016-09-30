@@ -1,7 +1,7 @@
 module EventfulData
+  include APICalls
 
-
-  def get_venues(location, venue_name)
+  def get_venues(venue_name)
 
     params = {
       app_key: ENV["eventful_key"], 
@@ -11,7 +11,9 @@ module EventfulData
 
     endpoint = "venues/search"
 
-    results = JSON.parse(api_call(endpoint, params))['venues']
+    url = "http://api.eventful.com/json/"
+
+    results = JSON.parse(api_call(url, endpoint, params))['venues']
 
     if results
       venues_raw = results['venue']
@@ -22,16 +24,22 @@ module EventfulData
 
   end
 
+  def get_shows_for_venue(venue_id)
+
+    params = {
+      app_key: ENV["eventful_key"], 
+      location: venue_id
+    }
+
+    endpoint = "events/search"
+
+    url = "http://api.eventful.com/json/"
+
+    JSON.parse(api_call(url, endpoint, params))['events']
+
+  end
 
   private
-
-  def api_call(endpoint,params)
-    uri = URI.parse("http://api.eventful.com/json/#{endpoint}")
-    uri.query = URI.encode_www_form(params)
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    http.request(request).body
-  end
 
   def clean_venue_address(venue)
     address = ""
