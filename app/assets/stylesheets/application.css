@@ -13,3 +13,31 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+	font-family: 'Poiret One', cursive;
+	font-weight: bold;
+	background-image: url('/assets/concert.jpg');
+	background-size: 100%, 100%;
+	background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #3B3B3B;
+}
+
+h1#main-header {
+	font-family: 'Quicksand', sans-serif;
+	/*font-size: 10em;*/
+	font-size: 16vw;
+	color: white;
+	text-align: center;
+	margin-top: .1em;
+	margin-bottom: .1em;
+}
+
+#main-container {
+	background: rgba(255, 255, 255, 0.6);
+	width: 60%;
+	margin: auto;
+	padding: 1em;
+	outline: 1px solid grey;
+}
