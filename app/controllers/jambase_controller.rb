@@ -9,7 +9,7 @@ include JambaseData
 
   def select_venue
 
-    @stuff = get_shows_for_venue(params[:id])['event']
+    @stuff = get_shows_for_venue(params[:id])
 
     render 'shows/index'
   end
