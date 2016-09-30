@@ -34,4 +34,8 @@ class UsersController < ApplicationController
     auth_hash.credentials.refresh_token
   end
 
+  def expire_time
+    auth_hash.credentials.expires_at
+  end
+
 end

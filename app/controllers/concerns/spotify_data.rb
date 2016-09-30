@@ -19,6 +19,7 @@ module SpotifyData
     api_call("/v1/browse/new-releases")
   end
 
+  private
 
   def api_call(endpoint)
     uri = URI.parse("https://api.spotify.com/#{endpoint}")

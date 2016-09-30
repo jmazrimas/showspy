@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   get '/auth/spotify/callback', to: 'users#spotify'
 
+  get '/venues', to: 'eventful#venues', as: 'eventful_venues'
+
 end

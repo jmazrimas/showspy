@@ -1,9 +1,38 @@
-<h1>ShowSpy</h1>
-
 <% if logged_in? %>
 <p>Hi, <%= current_user.uid %></p>
 <% end %>
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
+
+<br>
+<br>
+
 <% if @stuff %>
 	<%= @stuff %>
+<% end %>
+
+<br>
+
+<%= form_tag(eventful_venues_path, method: "get") do %>
+  <%= label_tag(:venue_name, "Venue Name:") %>
+  <%= text_field_tag(:venue_name) %>
+  <%= label_tag(:location, "Location:") %>
+  <%= text_field_tag(:location) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% if @venues %>
+	<table>
+	<tr>
+		<th>Name</td>
+		<th>Address</td>
+		<th>ID</th>
+	</tr>
+	<% @venues.each do |venue| %>
+	<tr>
+		<td><%= venue[:venue_name] %></td>
+		<td><%= venue[:address] %></td>
+		<td><%= venue[:id] %></td>
+	</tr>
+	<% end %>
+	</table>
 <% end %>
