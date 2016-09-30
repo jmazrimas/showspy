@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get '/auth/spotify/callback', to: 'users#spotify'
 
-  get '/venues', to: 'eventful#venues', as: 'eventful_venues'
-  get '/venues/:id', to: 'eventful#select_venue', as: 'eventful_select_venue'
+  get '/venues', to: 'jambase#venues', as: 'jambase_venues'
+  get '/venues/:id', to: 'jambase#select_venue', as: 'jambase_select_venue'
 
 end

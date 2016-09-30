@@ -12,11 +12,9 @@
 
 <br>
 
-<%= form_tag(eventful_venues_path, method: "get") do %>
+<%= form_tag(jambase_venues_path, method: "get") do %>
   <%= label_tag(:venue_name, "Venue Name:") %>
   <%= text_field_tag(:venue_name) %>
-  <%= label_tag(:location, "Location:") %>
-  <%= text_field_tag(:location) %>
   <%= submit_tag("Search") %>
 <% end %>
 
@@ -29,7 +27,7 @@
 	</tr>
 	<% @venues.each do |venue| %>
 	<tr>
-		<td><%= link_to venue[:venue_name], eventful_select_venue_path(venue[:id]) %></td>
+		<td><%= link_to venue[:venue_name], jambase_select_venue_path(venue[:id]) %></td>
 		<td><%= venue[:address] %></td>
 		<td><%= venue[:id] %></td>
 	</tr>
