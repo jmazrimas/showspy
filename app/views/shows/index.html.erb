@@ -29,7 +29,7 @@
 	</tr>
 	<% @venues.each do |venue| %>
 	<tr>
-		<td><%= venue[:venue_name] %></td>
+		<td><%= link_to venue[:venue_name], eventful_select_venue_path(venue[:id]) %></td>
 		<td><%= venue[:address] %></td>
 		<td><%= venue[:id] %></td>
 	</tr>

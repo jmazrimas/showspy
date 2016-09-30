@@ -1,7 +1,7 @@
 module EventfulData
   include APICalls
 
-  def get_venues(location, venue_name)
+  def get_venues(venue_name)
 
     params = {
       app_key: ENV["eventful_key"], 
@@ -24,7 +24,18 @@ module EventfulData
 
   end
 
-  def select_venue(venue_id)
+  def get_shows_for_venue(venue_id)
+
+    params = {
+      app_key: ENV["eventful_key"], 
+      location: venue_id
+    }
+
+    endpoint = "events/search"
+
+    url = "http://api.eventful.com/json/"
+
+    JSON.parse(api_call(url, endpoint, params))['events']
 
   end
 

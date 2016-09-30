@@ -13,6 +13,7 @@ module APICalls
     if url.include?("spotify")
       request['Authorization'] = "Bearer #{current_user.access_token}"
     end
+
     http.request(request).body
   end
 
