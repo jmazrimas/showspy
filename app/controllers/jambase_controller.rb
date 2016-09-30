@@ -18,9 +18,11 @@ include JambaseData
     @events = []
 
     events.each do |event|
-      new_event = Event.find_or_create_by(event)
+      new_event = Event.find_or_initialize_by(event)
       new_event.venue = Venue.find_by(jambase_id: params[:id])
       new_event.user = current_user
+      puts "111111111111"
+      puts new_event.save
       @events << new_event
     end
 

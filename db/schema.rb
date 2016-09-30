@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160930155923) do
     t.string   "artist"
     t.datetime "date"
     t.integer  "venue_id"
+    t.integer  "user_id"
     t.integer  "match_level"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
