@@ -28,7 +28,7 @@ module JambaseData
 
   end
 
-  def get_shows_for_venue(venue_id)
+  def get_events_for_venue(venue_id)
 
     endpoint = "events"
     url = "http://api.jambase.com/"

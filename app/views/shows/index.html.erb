@@ -27,9 +27,9 @@
 	</tr>
 	<% @venues.each do |venue| %>
 	<tr>
-		<td><%= link_to venue[:venue_name], jambase_select_venue_path(venue[:id]) %></td>
+		<td><%= link_to venue[:name], jambase_select_venue_path(venue[:jambase_id]) %></td>
 		<td><%= venue[:address] %></td>
-		<td><%= venue[:id] %></td>
+		<td><%= venue[:jambase_id] %></td>
 	</tr>
 	<% end %>
 	</table>
