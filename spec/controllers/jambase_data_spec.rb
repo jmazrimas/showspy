@@ -12,5 +12,12 @@ RSpec.describe JambaseData, type: :controller do
     expect(get_venues('asdfasfdasdf').length).to eq 0
   end
 
+  it "will return dates and artists for a valid venue" do
+    expect(get_shows_for_venue('467').length).to be > 1
+  end
+
+  it "will return no shows for an invalid venue" do
+    expect(get_shows_for_venue('a').length).to eq 0
+  end
 
 end
