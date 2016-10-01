@@ -27,6 +27,16 @@ module SpotifyData
 
   end
 
+  def get_related_artists(artist_code)
+
+    params = {
+      seed_artists: artist_code
+    }
+
+    JSON.parse(api_call("https://api.spotify.com/","v1/recommendations",params))
+
+  end 
+
   def new_releases
     # this is only used for testing purposes
     api_call("https://api.spotify.com/","/v1/browse/new-releases")

@@ -25,16 +25,36 @@ include JambaseData
       @events << new_event
     end
 
-    spotify_ids = []
+    # Below needs to be refactored out
 
+    reccos = {}
     @events.each do |event|
-      spotify_ids << get_artist_id(event.artist)
+      reccos[event.artist] = {spotify_id: get_artist_id(event.artist)}
     end
 
-    @stuff = spotify_ids
+    # spotify_ids = ['6naGTpITCSx3St2nZgxDuz','1v9FPBHwuI4FjR7ewOifmJ']
+
+    reccos.each_key do |artist|
+      reccos[artist][:related_list] = return_related_list(reccos[artist][:spotify_id])
+    end
+
+    @stuff = reccos
 
     render 'shows/index'
   end
 
+
+
+  def return_related_list(spotify_id)
+    recc_list = []
+    get_related_artists(spotify_id)['tracks'].each do |track|
+      track['artists'].each do |artist|
+        if !recc_list.include?(artist['name'])
+          recc_list << artist['name']
+        end
+      end
+    end
+    recc_list
+  end
 
 end
