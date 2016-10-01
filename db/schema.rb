@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930155923) do
+ActiveRecord::Schema.define(version: 20161001134532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artists", force: :cascade do |t|
+    t.string   "name"
+    t.string   "spotify_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "artist"
@@ -23,6 +30,22 @@ ActiveRecord::Schema.define(version: 20160930155923) do
     t.integer  "match_level"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "track_profiles", force: :cascade do |t|
+    t.integer  "artist_id"
+    t.float    "danceability"
+    t.float    "energy"
+    t.float    "loudness"
+    t.float    "mode"
+    t.float    "speechiness"
+    t.float    "acousticness"
+    t.float    "instrumentalness"
+    t.float    "liveness"
+    t.float    "valence"
+    t.float    "tempo"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|

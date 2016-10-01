@@ -9,7 +9,9 @@ include EventfulData
       # @stuff = top_artists
       # @stuff = get_venues('60622','Double Door')
 
-      @stuff = "things = #{get_artist_id("sting")}"
+      tracks = get_top_tracks("6naGTpITCSx3St2nZgxDuz")
+
+      @stuff = get_track_attributes(tracks)
 
     end
 
