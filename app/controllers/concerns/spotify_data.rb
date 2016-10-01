@@ -14,6 +14,19 @@ module SpotifyData
 
   end
 
+  def get_artist_id(artist_name)
+
+    params = {
+      q: artist_name,
+      type: 'artist'
+    }
+
+    response  = JSON.parse(api_call("https://api.spotify.com/","v1/search",params))
+
+    response['artists']['items'][0]['id']
+
+  end
+
   def new_releases
     # this is only used for testing purposes
     api_call("https://api.spotify.com/","/v1/browse/new-releases")
