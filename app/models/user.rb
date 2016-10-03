@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :top_artists
+  has_many :events
   has_many :artists, through: :top_artists
 
 
@@ -20,7 +21,10 @@ class User < ApplicationRecord
   def score_track_genres(genres)
     score = 0
     genres.each do |genre|
-      score += listening_genre_profile[genre]
+      if !listening_genre_profile[genre]
+      else
+        score += listening_genre_profile[genre]
+      end
     end
     score
   end

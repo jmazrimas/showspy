@@ -16,6 +16,14 @@ module SpotifyData
 
   end
 
+  def add_spotify_data_to_artist(artist)
+
+    spotify_id = get_artist_info(artist.name)
+
+
+
+  end
+
   def build_user_top_artist_data
 
     tracks = []
@@ -50,6 +58,23 @@ module SpotifyData
     new_artist = Artist.find_or_create_by(name: artist_name, spotify_id: response['artists']['items'][0]['id'])
 
     new_artist.spotify_id
+
+  end
+
+  def get_artist_info(artist_name)
+
+    params = {
+      q: artist_name,
+      type: 'artist'
+    }
+
+    response  = JSON.parse(api_call("https://api.spotify.com/","v1/search",params))
+
+    artist = Artist.find_or_create_by(name: artist_name)
+    artist.update(spotify_id: response['artists']['items'][0]['id'])
+    artist.update(genre_list: response['artists']['items'][0]['genres'])
+
+    artist
 
   end
 

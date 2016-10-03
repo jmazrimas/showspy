@@ -12,6 +12,31 @@ include EventfulData
 
   end
 
+  def rate
+
+    ratings = {}
+
+    current_user.events.each do |event|
+      if !event.artist.genre_list
+        get_artist_info(event.artist.name)
+      end
+
+      if current_user.artists.include?(event.artist)
+        score = 1000
+      else
+        score = current_user.score_track_genres(event.artist.genre_list)
+      end
+
+      ratings[event.artist.name] = score if score > 0
+
+    end
+
+    @stuff = ratings.sort_by {|_key, value| -value}.to_h 
+
+    render 'shows/index' 
+
+  end
+
 end
 
 
