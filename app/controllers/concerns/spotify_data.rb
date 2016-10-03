@@ -7,11 +7,9 @@ module SpotifyData
     spotify_artists = JSON.parse(api_call("https://api.spotify.com/","v1/me/top/artists"))
 
     spotify_artists['items'].each do |item|
-      # genre_list = item['genres'].to_a
       new_artist = Artist.find_or_create_by(name: item['name'], spotify_id: item['id'])
       new_artist.update(genre_list: item['genres'])
       artists << new_artist
-
     end
 
     artists
@@ -22,7 +20,9 @@ module SpotifyData
 
     tracks = []
 
-    top_artists.each do |artist|
+    user_top_artists = top_artists
+
+    user_top_artists.each do |artist|
       tracks.concat(get_top_tracks(artist))
     end
 
@@ -33,6 +33,8 @@ module SpotifyData
     tracks_needing_profile.each_slice(100) do |track_set|
       get_track_attributes(track_set)
     end
+
+    user_top_artists
 
   end
 

@@ -6,7 +6,15 @@ include EventfulData
 
     if logged_in?
 
-      build_user_top_artist_data
+      @stuff = []
+
+      if session[:top_artists]
+        session[:top_artists].each do |id|
+          @stuff << Artist.find_by(id: id)
+        end
+      end
+
+      session[:top_artists]=build_user_top_artist_data.map(&:id)
 
       # @stuff = top_artists
       # @stuff = get_venues('60622','Double Door')
