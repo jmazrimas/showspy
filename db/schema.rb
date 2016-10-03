@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001134532) do
+ActiveRecord::Schema.define(version: 20161001140653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20161001134532) do
   end
 
   create_table "track_profiles", force: :cascade do |t|
-    t.integer  "artist_id"
+    t.integer  "track_id"
     t.float    "danceability"
     t.float    "energy"
     t.float    "loudness"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 20161001134532) do
     t.float    "tempo"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string   "spotify_id"
+    t.integer  "artist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

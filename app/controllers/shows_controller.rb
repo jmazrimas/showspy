@@ -6,12 +6,16 @@ include EventfulData
 
     if logged_in?
 
+      build_user_top_artist_data
+
       # @stuff = top_artists
       # @stuff = get_venues('60622','Double Door')
 
-      tracks = get_top_tracks("6naGTpITCSx3St2nZgxDuz")
+      # artist_id = get_artist_id("Merchandise")
 
-      @stuff = get_track_attributes(tracks)
+      # @stuff = get_top_tracks(artist_id)
+
+      # @stuff = get_track_attributes(tracks)
 
     end
 

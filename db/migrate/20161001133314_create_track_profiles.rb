@@ -1,7 +1,7 @@
 class CreateTrackProfiles < ActiveRecord::Migration[5.0]
   def change
     create_table :track_profiles do |t|
-      t.integer :artist_id
+      t.integer :track_id
       t.float :danceability
       t.float :energy
       t.float :loudness

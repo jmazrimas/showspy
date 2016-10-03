@@ -1,3 +1,3 @@
 class TrackProfile < ApplicationRecord
-  belongs_to :artist
+  belongs_to :track
 end

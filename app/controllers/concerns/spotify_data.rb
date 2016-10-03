@@ -3,14 +3,33 @@ module SpotifyData
 
   def top_artists
     
-    a=[]
-    artists = JSON.parse(api_call("https://api.spotify.com/","v1/me/top/artists"))
+    artists=[]
+    spotify_artists = JSON.parse(api_call("https://api.spotify.com/","v1/me/top/artists"))
 
-    artists['items'].each do |item|
-      a << item['name']
+    spotify_artists['items'].each do |item|
+      artists << Artist.find_or_create_by(name: item['name'], spotify_id: item['id'])
+      # a << item['name']
     end
 
-    a
+    artists
+
+  end
+
+  def build_user_top_artist_data
+
+    tracks = []
+
+    top_artists.each do |artist|
+      tracks.concat(get_top_tracks(artist))
+    end
+
+    tracks_needing_profile = tracks.select { |track| !track.track_profile }
+
+    tracks_needing_profile = tracks_needing_profile.map { |track| track.spotify_id }
+
+    tracks_needing_profile.each_slice(100) do |track_set|
+      get_track_attributes(track_set)
+    end
 
   end
 
@@ -22,7 +41,10 @@ module SpotifyData
     }
 
     response  = JSON.parse(api_call("https://api.spotify.com/","v1/search",params))
-    response['artists']['items'][0]['id']
+
+    new_artist = Artist.find_or_create_by(name: artist_name, spotify_id: response['artists']['items'][0]['id'])
+
+    new_artist.spotify_id
 
   end
 
@@ -35,16 +57,29 @@ module SpotifyData
 
   end
 
-  def get_top_tracks(artist_code)
+  def get_top_tracks(artist)
 
-    params = {
-      country: 'US'
-    }
+    if !artist.tracks.exists?
 
-    raw_tracks = JSON.parse(api_call("https://api.spotify.com/","v1/artists/#{artist_code}/top-tracks",params))['tracks']
+      artist_code = artist.spotify_id
 
-    raw_tracks.collect do |track|
-      track['id']
+      params = {
+        country: 'US'
+      }
+
+      raw_tracks = JSON.parse(api_call("https://api.spotify.com/","v1/artists/#{artist_code}/top-tracks",params))['tracks']
+
+      artist = Artist.find_by(spotify_id: artist_code)
+      tracks = []
+
+      raw_tracks.each do |track|
+        new_track = Track.find_or_create_by(artist: artist, spotify_id: track['id'])
+        tracks << new_track if new_track
+      end
+
+      tracks
+    else
+      artist.tracks
     end
 
   end
@@ -56,17 +91,16 @@ module SpotifyData
 
     raw_attributes = JSON.parse(api_call("https://api.spotify.com/","v1/audio-features",params))['audio_features']
 
-    tracks_attributes = {}
-
     track_ids.each_with_index do |track_id, i|
-      tracks_attributes[track_id] = raw_attributes[i]
+      track = Track.find_by(spotify_id: track_id)
+      track_data = raw_attributes[i].keep_if { |k,v| TrackProfile.new.attributes.keys.include?(k) && k != 'id'}
+      track.create_track_profile(track_data)
+      # profile.track = Track.find_by(spotify_id: track_id)
+      # profile.save
     end
-
-    tracks_attributes
 
   end
 
-  # "danceability"=>0.314, "energy"=>0.844, "loudness"=>-6.797, "mode"=>0, "speechiness"=>0.0652, "acousticness"=>1.59e-05, "instrumentalness"=>0.00163, "liveness"=>0.35, "valence"=>0.127, "tempo"=>75.513, 
 
   def new_releases
     # this is only used for testing purposes
