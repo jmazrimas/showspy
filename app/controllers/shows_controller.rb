@@ -4,33 +4,13 @@ include EventfulData
 
   def index
 
-    if logged_in?
-
-      @stuff = []
-
-      if session[:top_artists]
-        session[:top_artists].each do |id|
-          @stuff << Artist.find_by(id: id)
-        end
-      end
-
-      # session[:top_artists]=build_user_top_artist_data.map(&:id)
+    if logged_in? && current_user.artists.count == 0
 
       current_user.update(artists: build_user_top_artist_data)
-
-      # @stuff = top_artists
-      # @stuff = get_venues('60622','Double Door')
-
-      # artist_id = get_artist_id("Merchandise")
-
-      # @stuff = get_top_tracks(artist_id)
-
-      # @stuff = get_track_attributes(tracks)
 
     end
 
   end
-
 
 end
 

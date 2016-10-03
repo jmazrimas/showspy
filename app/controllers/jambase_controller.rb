@@ -41,6 +41,12 @@ include JambaseData
 
     # @stuff = reccos
 
+    @stuff = {}
+
+    @events.each do |event|
+      @stuff[event.artist] = score_track_genres(event.artist.genre_list)
+    end
+
     render 'shows/index'
   end
 
