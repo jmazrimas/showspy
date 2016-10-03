@@ -15,5 +15,14 @@ class User < ApplicationRecord
 
     profile.sort_by {|_key, value| value}.to_h
   end
+
+
+  def score_track_genres(genres)
+    score = 0
+    genres.each do |genre|
+      score += listening_genre_profile[genre]
+    end
+    score
+  end
   
 end
