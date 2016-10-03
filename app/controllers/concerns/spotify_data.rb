@@ -7,7 +7,13 @@ module SpotifyData
     spotify_artists = JSON.parse(api_call("https://api.spotify.com/","v1/me/top/artists"))
 
     spotify_artists['items'].each do |item|
-      artists << Artist.find_or_create_by(name: item['name'], spotify_id: item['id'])
+      genre_list = item['genres'].to_a
+
+      # p '!!!!!!!!!!!!!!!!'
+      # p genre_list.class
+      # p genre_list.to_s
+
+      artists << Artist.find_or_create_by(name: item['name'], spotify_id: item['id'], genre_list: genre_list)
       # a << item['name']
     end
 

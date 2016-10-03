@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20161003163302) do
     t.string   "spotify_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "genres"
+    t.string   "genre_list"
   end
 
   create_table "events", force: :cascade do |t|

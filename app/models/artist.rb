@@ -1,4 +1,4 @@
 class Artist < ApplicationRecord
   has_many :tracks
-  serialize :genres
+  serialize :genre_list
 end
