@@ -14,7 +14,9 @@ include EventfulData
         end
       end
 
-      session[:top_artists]=build_user_top_artist_data.map(&:id)
+      # session[:top_artists]=build_user_top_artist_data.map(&:id)
+
+      current_user.update(artists: build_user_top_artist_data)
 
       # @stuff = top_artists
       # @stuff = get_venues('60622','Double Door')
