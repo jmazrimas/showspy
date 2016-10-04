@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
 gem 'rspotify','~>1.18'
+gem 'coveralls', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
