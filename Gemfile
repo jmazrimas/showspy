@@ -31,6 +31,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'figaro'
 gem 'rspotify','~>1.18'
 gem 'coveralls', require: false
+gem 'rest-client'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

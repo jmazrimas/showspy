@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
-
+include SpotifyData
 
   def spotify
     user = User.find_or_create_by(uid: uid)
     user.access_token = access_token
     user.refresh_token = refresh_token
+    user.token_expires_at = expire_time
 
     if user.save
       session[:user_id]=user.id
+      build_spotify_data
     else
       @errors = ["Unable to authenticate"]
     end
@@ -15,6 +17,9 @@ class UsersController < ApplicationController
     render 'shows/index'
   end
 
+  def build_spotify_data
+    current_user.update(artists: build_user_top_artist_data)
+  end
 
   private
 
@@ -35,7 +40,8 @@ class UsersController < ApplicationController
   end
 
   def expire_time
-    auth_hash.credentials.expires_at
+    unix_time = auth_hash.credentials.expires_at.to_i
+    Time.at(unix_time).to_datetime
   end
 
 end

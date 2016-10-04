@@ -23,6 +23,10 @@ module SpotifyData
 
   end
 
+  def refresh_token
+    refresh_spotify_token
+  end
+
   # can't test b/c it requires auth
   def build_user_top_artist_data
 
@@ -136,8 +140,12 @@ module SpotifyData
   end
 
 
+  def get_new_token
+  end
+
+
+  # this is only used for testing purposes
   def new_releases
-    # this is only used for testing purposes
     api_call("https://api.spotify.com/","/v1/browse/new-releases")
   end
 

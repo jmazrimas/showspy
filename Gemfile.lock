@@ -232,6 +232,7 @@ DEPENDENCIES
   pg
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  rest-client
   rspec-rails (~> 3.5)
   rspotify (~> 1.18)
   sass-rails (~> 5.0)
