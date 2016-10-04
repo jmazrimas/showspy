@@ -1,6 +1,7 @@
 module SpotifyData
   include APICalls
 
+  # can't test b/c it requires auth
   def top_artists
     
     artists=[]
@@ -20,10 +21,9 @@ module SpotifyData
 
     spotify_id = get_artist_info(artist.name)
 
-
-
   end
 
+  # can't test b/c it requires auth
   def build_user_top_artist_data
 
     tracks = []
@@ -78,6 +78,7 @@ module SpotifyData
 
   end
 
+  # can't test b/c it requires auth
   def get_related_artists(artist_code)
 
     params = {
@@ -114,6 +115,7 @@ module SpotifyData
 
   end
 
+  # can't test b/c it requires auth
   def get_track_attributes(track_ids)
     params = {
       ids: track_ids.join(',')
@@ -122,6 +124,8 @@ module SpotifyData
     raw_attributes = JSON.parse(api_call("https://api.spotify.com/","v1/audio-features",params))['audio_features']
 
     track_ids.each_with_index do |track_id, i|
+      p raw_attributes
+
       track = Track.find_by(spotify_id: track_id)
       track_data = raw_attributes[i].keep_if { |k,v| TrackProfile.new.attributes.keys.include?(k) && k != 'id'}
       track.create_track_profile(track_data)
