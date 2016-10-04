@@ -1,5 +1,5 @@
 class JambaseController < ApplicationController
-include SpotifyData
+# include SpotifyData
 include JambaseData
 
   def venues
@@ -47,8 +47,6 @@ include JambaseData
 
     render 'shows/index'
   end
-
-
 
   def return_related_list(spotify_id)
     recc_list = []

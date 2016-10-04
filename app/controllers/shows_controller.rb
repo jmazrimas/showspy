@@ -1,23 +1,17 @@
 class ShowsController < ApplicationController
 include SpotifyData
-include EventfulData
+# include EventfulData
+
+before_action :check_spotify_token, only: [:rate, :get_ratings]
 
   def index
-
-    if logged_in? && current_user.artists.count == 0
-
-      current_user.update(artists: build_user_top_artist_data)
-
-    end
 
   end
 
   def rate
 
     ratings = get_ratings
-
     @stuff = ratings
-
     render 'shows/index' 
 
   end
@@ -25,7 +19,6 @@ include EventfulData
   def get_ratings
     
     ratings = {}
-
     current_user.events.each do |event|
 
       if !event.artist.genre_list
@@ -38,14 +31,18 @@ include EventfulData
         score = current_user.score_track_genres(event.artist.genre_list)
       end
 
-      puts current_user.max_track_score
-      puts "#{event.artist.name} = #{score}"
-
       ratings[event.artist.name] = score if score > 0
     end
 
     ratings.sort_by {|_key, value| -value}.to_h
 
+  end
+
+  private
+
+  def check_spotify_token
+    if current_user.token_expiring?
+    end
   end
 
 end

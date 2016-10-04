@@ -136,8 +136,12 @@ module SpotifyData
   end
 
 
+  def get_new_token
+  end
+
+
+  # this is only used for testing purposes
   def new_releases
-    # this is only used for testing purposes
     api_call("https://api.spotify.com/","/v1/browse/new-releases")
   end
 

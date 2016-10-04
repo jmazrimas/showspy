@@ -32,5 +32,9 @@ class User < ApplicationRecord
   def max_track_score
     listening_genre_profile.inject(0) { |total, (k, v)| total + v }
   end
+
+  def token_expiring?
+    (token_expires_at - Time.now.utc) < 900
+  end
   
 end
