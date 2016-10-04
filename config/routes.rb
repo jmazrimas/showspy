@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get '/venues', to: 'jambase#venues', as: 'jambase_venues'
   get '/venues/:id', to: 'jambase#select_venue', as: 'jambase_select_venue'
 
+  get '/shows/rate', to: 'shows#rate', as: 'shows_rate'
+
 end

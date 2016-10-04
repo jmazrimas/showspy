@@ -4,31 +4,49 @@ include EventfulData
 
   def index
 
-    if logged_in?
+    if logged_in? && current_user.artists.count == 0
 
-      @stuff = []
-
-      if session[:top_artists]
-        session[:top_artists].each do |id|
-          @stuff << Artist.find_by(id: id)
-        end
-      end
-
-      session[:top_artists]=build_user_top_artist_data.map(&:id)
-
-      # @stuff = top_artists
-      # @stuff = get_venues('60622','Double Door')
-
-      # artist_id = get_artist_id("Merchandise")
-
-      # @stuff = get_top_tracks(artist_id)
-
-      # @stuff = get_track_attributes(tracks)
+      current_user.update(artists: build_user_top_artist_data)
 
     end
 
   end
 
+  def rate
+
+    ratings = get_ratings
+
+    @stuff = ratings
+
+    render 'shows/index' 
+
+  end
+
+  def get_ratings
+    
+    ratings = {}
+
+    current_user.events.each do |event|
+
+      if !event.artist.genre_list
+        get_artist_info(event.artist.name)
+      end
+
+      if current_user.artists.include?(event.artist)
+        score = 100
+      else
+        score = current_user.score_track_genres(event.artist.genre_list)
+      end
+
+      puts current_user.max_track_score
+      puts "#{event.artist.name} = #{score}"
+
+      ratings[event.artist.name] = score if score > 0
+    end
+
+    ratings.sort_by {|_key, value| -value}.to_h
+
+  end
 
 end
 
