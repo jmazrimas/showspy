@@ -6,6 +6,10 @@ before_action :check_spotify_token, only: [:rate, :get_ratings]
 
   def index
 
+    if logged_in?
+      refresh_token
+    end
+
   end
 
   def rate
@@ -42,6 +46,7 @@ before_action :check_spotify_token, only: [:rate, :get_ratings]
 
   def check_spotify_token
     if current_user.token_expiring?
+      refresh_token
     end
   end
 

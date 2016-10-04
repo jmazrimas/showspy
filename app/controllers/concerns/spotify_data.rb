@@ -23,6 +23,10 @@ module SpotifyData
 
   end
 
+  def refresh_token
+    refresh_spotify_token
+  end
+
   # can't test b/c it requires auth
   def build_user_top_artist_data
 
