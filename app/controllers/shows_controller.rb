@@ -14,26 +14,37 @@ include EventfulData
 
   def rate
 
+    ratings = get_ratings
+
+    @stuff = ratings
+
+    render 'shows/index' 
+
+  end
+
+  def get_ratings
+    
     ratings = {}
 
     current_user.events.each do |event|
+
       if !event.artist.genre_list
         get_artist_info(event.artist.name)
       end
 
       if current_user.artists.include?(event.artist)
-        score = 1000
+        score = 100
       else
         score = current_user.score_track_genres(event.artist.genre_list)
       end
 
-      ratings[event.artist.name] = score if score > 0
+      puts current_user.max_track_score
+      puts "#{event.artist.name} = #{score}"
 
+      ratings[event.artist.name] = score if score > 0
     end
 
-    @stuff = ratings.sort_by {|_key, value| -value}.to_h 
-
-    render 'shows/index' 
+    ratings.sort_by {|_key, value| -value}.to_h
 
   end
 

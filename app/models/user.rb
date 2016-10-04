@@ -26,7 +26,11 @@ class User < ApplicationRecord
         score += listening_genre_profile[genre]
       end
     end
-    score
+    (score*100)/max_track_score
+  end
+
+  def max_track_score
+    listening_genre_profile.inject(0) { |total, (k, v)| total + v }
   end
   
 end
