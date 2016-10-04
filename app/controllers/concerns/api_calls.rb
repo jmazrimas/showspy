@@ -10,7 +10,7 @@ module APICalls
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
     request = Net::HTTP::Get.new(uri.request_uri)
-    if url.include?("spotify")
+    if url.include?("spotify") && !Rails.env.test?
       request['Authorization'] = "Bearer #{current_user.access_token}"
     end
 
