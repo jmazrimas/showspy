@@ -15,6 +15,8 @@ include JambaseData
 
   def select_venue
 
+    current_user.events.delete_all
+
     events = get_events_for_venue(params[:id])
     @events = []
 
