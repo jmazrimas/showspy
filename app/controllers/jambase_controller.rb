@@ -10,7 +10,7 @@ include JambaseData
       @venues << Venue.find_or_create_by(name: venue[:venue_name], address: venue[:address] ,jambase_id: venue[:id] )
     end
 
-    render 'shows/index' 
+    render 'events/index' 
   end
 
   def select_venue
@@ -30,7 +30,7 @@ include JambaseData
 
     @stuff = @events
 
-    render 'shows/index'
+    render 'events/index'
   end
 
   def return_related_list(spotify_id)

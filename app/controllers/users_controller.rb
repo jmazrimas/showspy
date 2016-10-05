@@ -14,7 +14,12 @@ include SpotifyData
       @errors = ["Unable to authenticate"]
     end
 
-    render 'shows/index'
+    render 'events/index'
+  end
+
+  def logout
+    session[:user_id]=nil
+    render 'events/index'
   end
 
   def build_spotify_data

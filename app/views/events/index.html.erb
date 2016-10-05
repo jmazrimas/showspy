@@ -1,0 +1,34 @@
+<div id="spotify-log-in" class="sub-element">
+	<% if logged_in? %>
+		<%= link_to "Logged in as #{current_user.uid}", '/logout'%>
+	<% else %>
+		<%= link_to 'Sign in with Spotify', '/auth/spotify' %>	
+	<% end %>
+</div>
+
+<% if logged_in? %>
+	<div id="venue-search" class="sub-element">
+		<span class="sub-element-title">Search for a venue</span>
+		<%= form_tag(jambase_venues_path, method: "get") do %>
+		  <%= text_field_tag(:venue_name) %>
+		  <%= submit_tag("Search", id: "search-button") %>
+		<% end %>
+	</div>
+<% end %>
+
+<% if @venues %>
+	<table>
+	<tr>
+		<th>Name</td>
+		<th>Address</td>
+		<th>ID</th>
+	</tr>
+	<% @venues.each do |venue| %>
+	<tr>
+		<td><%= link_to venue[:name], jambase_select_venue_path(venue[:jambase_id]) %></td>
+		<td><%= venue[:address] %></td>
+		<td><%= venue[:jambase_id] %></td>
+	</tr>
+	<% end %>
+	</table>
+<% end %>
