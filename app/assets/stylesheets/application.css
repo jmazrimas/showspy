@@ -41,3 +41,122 @@ h1#main-header {
 	padding: 1em;
 	outline: 1px solid grey;
 }
+
+.sub-element {
+	background: rgba(255, 255, 255, 0.6);
+	min-height: 38px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 15px;
+	border-radius: 3px;
+	padding: 2% 5% 2% 5%;
+}
+
+#spotify-log-in {
+	position: relative;
+  top: 0;
+	background-color: rgba(30, 215, 96, 0.6);
+	text-align: center;
+	font-size: 2em;
+	-o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.2s;
+  transition: top ease 0.3s;
+}
+
+a {
+	text-decoration: none;
+	color: initial;
+}
+
+#spotify-log-in:hover {
+	top: -2px;
+	box-shadow: 0px 4px 2px #888888;
+	content: "logout";
+}
+
+#venue-search {
+	/*background-color: rgba(44, 44, 44, 0.6); */
+	text-align: center;
+}
+
+.sub-element-title {
+	display: inline-block;
+	font-size: 2em;
+	margin-bottom: 20px;
+}
+
+div.sub-element-title {
+	text-align: center;
+}
+
+#footer {
+	font-size: .8em;
+	text-align: center;
+}
+
+input#venue_name {
+	width: 70%;
+  border: none;
+	margin-right: -4px;
+	height: 30px;
+	padding: 0px;
+}
+
+input[type="submit"] {
+	height: 30px;
+	width: 20%;
+  background-color: rgba(30, 215, 96, .6);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.3s;
+}
+
+#search-button {
+	position: relative;
+	top: 1px;
+}
+
+input[type="submit"]:hover {
+	background-color: #18B550;
+}
+
+form.button_to {
+	display: inline;
+}
+
+.venue {
+	margin-top: .4em;
+	margin-bottom: .4em;
+}
+
+.venue-name {
+	font-size: 1.1em;
+}
+
+.venue-address {
+	font-size: .8em;
+}
+
+td {
+	width: 25%;
+}
+
+th {
+	font-size: 1.5em;
+	text-align: left;
+}
+
+table {
+	margin: auto;
+}

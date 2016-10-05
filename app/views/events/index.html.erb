@@ -1,0 +1,42 @@
+<div id="spotify-log-in" class="sub-element">
+	<% if logged_in? %>
+		<%= link_to "Logged in as #{current_user.uid}", '/logout'%>
+	<% else %>
+		<%= link_to 'Sign in with Spotify', '/auth/spotify' %>	
+	<% end %>
+</div>
+
+<% if logged_in? %>
+	<div id="venue-search" class="sub-element">
+		<span class="sub-element-title">Search for a venue</span>
+		<%= form_tag(jambase_venues_path, method: "get") do %>
+		  <%= text_field_tag(:venue_name) %>
+		  <%= submit_tag("Search", id: "search-button") %>
+		<% end %>
+	</div>
+<% end %>
+
+<% if @venues %>
+	<div class="sub-element">
+		<% @venues.each do |venue| %>
+		<%= render partial: "events/single_venue", locals: {venue: venue} %>
+		<% end %>
+	</div>
+	
+<% end %>
+
+<% if @rated_events %>
+	<div class="sub-element">
+		<div class="sub-element-title">Events for <%= @venue.name %></div>
+		<table>
+		<tr>
+			<th>Artist</th>
+			<th>Date</th>
+			<th>Score</th>
+		</tr>
+			<% @rated_events.each_with_index do |(event, score),i| %>
+			<%= render partial: "events/single_event", locals: {event: event, score: score} if i < 5 %>
+			<% end %>
+		</table>
+	</div>
+<% end %>

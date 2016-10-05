@@ -18,9 +18,7 @@ module SpotifyData
   end
 
   def add_spotify_data_to_artist(artist)
-
-    spotify_id = get_artist_info(artist.name)
-
+    get_artist_info(artist.name)
   end
 
   def refresh_token
@@ -38,6 +36,14 @@ module SpotifyData
       tracks.concat(get_top_tracks(artist))
     end
 
+    create_needed_profiles(tracks)
+
+    user_top_artists
+
+  end
+
+
+  def create_needed_profiles(tracks)
     tracks_needing_profile = tracks.select { |track| !track.track_profile }
 
     tracks_needing_profile = tracks_needing_profile.map { |track| track.spotify_id }
@@ -45,9 +51,6 @@ module SpotifyData
     tracks_needing_profile.each_slice(100) do |track_set|
       get_track_attributes(track_set)
     end
-
-    user_top_artists
-
   end
 
   def get_artist_id(artist_name)
@@ -75,8 +78,14 @@ module SpotifyData
     response  = JSON.parse(api_call("https://api.spotify.com/","v1/search",params))
 
     artist = Artist.find_or_create_by(name: artist_name)
-    artist.update(spotify_id: response['artists']['items'][0]['id'])
-    artist.update(genre_list: response['artists']['items'][0]['genres'])
+    artist.spotify_id = response['artists']['items'][0]['id']
+    artist.genre_list = response['artists']['items'][0]['genres']
+    artist.save
+
+    if !Rails.env.test?
+      tracks = get_top_tracks(artist)
+      create_needed_profiles(tracks)
+    end
 
     artist
 
@@ -102,7 +111,9 @@ module SpotifyData
         country: 'US'
       }
 
-      raw_tracks = JSON.parse(api_call("https://api.spotify.com/","v1/artists/#{artist_code}/top-tracks",params))['tracks']
+      response = api_call("https://api.spotify.com/","v1/artists/#{artist_code}/top-tracks",params)
+
+      raw_tracks = JSON.parse(response)['tracks']
 
       artist = Artist.find_by(spotify_id: artist_code)
       tracks = []
@@ -128,19 +139,11 @@ module SpotifyData
     raw_attributes = JSON.parse(api_call("https://api.spotify.com/","v1/audio-features",params))['audio_features']
 
     track_ids.each_with_index do |track_id, i|
-      p raw_attributes
-
       track = Track.find_by(spotify_id: track_id)
       track_data = raw_attributes[i].keep_if { |k,v| TrackProfile.new.attributes.keys.include?(k) && k != 'id'}
       track.create_track_profile(track_data)
-      # profile.track = Track.find_by(spotify_id: track_id)
-      # profile.save
     end
 
-  end
-
-
-  def get_new_token
   end
 
 

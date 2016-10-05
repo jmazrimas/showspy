@@ -1,0 +1,5 @@
+<div class="venue">
+	<%= button_to 'Select', jambase_select_venue_path(venue[:jambase_id]), class: 'venue-select', method: 'get' %>
+	<span class="venue-name"><%= venue[:name] %></span>
+	<span class="venue-address"><%= venue[:address] %></span>
+</div>
