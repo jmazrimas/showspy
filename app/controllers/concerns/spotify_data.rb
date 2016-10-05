@@ -82,8 +82,10 @@ module SpotifyData
     artist.genre_list = response['artists']['items'][0]['genres']
     artist.save
 
-    tracks = get_top_tracks(artist)
-    create_needed_profiles(tracks)
+    if !Rails.env.test?
+      tracks = get_top_tracks(artist)
+      create_needed_profiles(tracks)
+    end
 
     artist
 
@@ -109,13 +111,7 @@ module SpotifyData
         country: 'US'
       }
 
-      p '!!!!!!!!!!!!!!!!!!!!!!!!!'
-      p artist.name
-      p artist_code
-
       response = api_call("https://api.spotify.com/","v1/artists/#{artist_code}/top-tracks",params)
-
-      p response
 
       raw_tracks = JSON.parse(response)['tracks']
 
