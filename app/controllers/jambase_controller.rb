@@ -30,7 +30,8 @@ include JambaseData
 
     @stuff = @events
 
-    render 'events/index'
+    # render 'events/index'
+    redirect_to '/events/rate'
   end
 
   def return_related_list(spotify_id)

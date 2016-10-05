@@ -82,10 +82,14 @@ a {
 	text-align: center;
 }
 
-span.sub-element-title {
+.sub-element-title {
 	display: inline-block;
 	font-size: 2em;
 	margin-bottom: 20px;
+}
+
+div.sub-element-title {
+	text-align: center;
 }
 
 #footer {
@@ -142,4 +146,17 @@ form.button_to {
 
 .venue-address {
 	font-size: .8em;
+}
+
+td {
+	width: 25%;
+}
+
+th {
+	font-size: 1.5em;
+	text-align: left;
+}
+
+table {
+	margin: auto;
 }

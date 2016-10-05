@@ -25,10 +25,18 @@
 	
 <% end %>
 
-<% if @events %>
+<% if @rated_events %>
 	<div class="sub-element">
-		<% @events.each do |event| %>
-		<%= render partial: "events/single_event", locals: {event: event} %>
-		<% end %>
+		<div class="sub-element-title">Events for <%= @venue.name %></div>
+		<table>
+		<tr>
+			<th>Artist</th>
+			<th>Date</th>
+			<th>Score</th>
+		</tr>
+			<% @rated_events.each_with_index do |(event, score),i| %>
+			<%= render partial: "events/single_event", locals: {event: event, score: score} if i < 5 %>
+			<% end %>
+		</table>
 	</div>
 <% end %>

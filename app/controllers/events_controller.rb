@@ -8,9 +8,10 @@ before_action :check_spotify_token, only: [:rate, :get_ratings]
 
   def rate
 
-    ratings = get_ratings
-    @events = ratings
-    render 'shows/index' 
+    @rated_events = get_ratings
+    @venue = current_user.events.first.venue
+
+    render 'events/index' 
 
   end
 
@@ -29,7 +30,7 @@ before_action :check_spotify_token, only: [:rate, :get_ratings]
         score = current_user.score_track_genres(event.artist.genre_list)
       end
 
-      ratings[event.artist] = score if score > 0
+      ratings[event] = score if score > 0
     end
 
     ratings.sort_by {|_key, value| -value}.to_h

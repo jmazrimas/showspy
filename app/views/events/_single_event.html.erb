@@ -1,3 +1,5 @@
-<div class="event">
-	<p><%= event.artist.name %></p>
-</div>
+<tr>
+	<td><%= event.artist.name %></td>
+	<td><%= event.date.strftime("%b %d %Y") %></td>
+	<td><%= score %>%</td>
+</tr>
