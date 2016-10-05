@@ -26,11 +26,12 @@ before_action :check_spotify_token, only: [:rate, :get_ratings]
 
       if current_user.artists.include?(event.artist)
         score = 100
+      elsif !event.artist.genre_list
       else
         score = current_user.score_track_genres(event.artist.genre_list)
       end
 
-      ratings[event] = score if score > 0
+      ratings[event] = score if event.artist.genre_list && score > 0
     end
 
     ratings.sort_by {|_key, value| -value}.to_h

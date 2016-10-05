@@ -19,9 +19,9 @@ include JambaseData
 
     events.each do |event|
       # This is an issue -- user needs to be assigned on event creation, not after the fact
-      event[:user] = current_user
-      event[:artist] = Artist.find_or_create_by(name: event[:artist])
-      new_event = Event.find_or_initialize_by(event)
+      new_event = Event.new
+      new_event.user = current_user
+      new_event.artist = Artist.find_or_create_by(name: event[:artist])
       new_event.venue = Venue.find_by(jambase_id: params[:id])
       # new_event.user = current_user
       new_event.save
