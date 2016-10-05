@@ -1,5 +1,5 @@
 class JambaseController < ApplicationController
-# include SpotifyData
+include SpotifyData
 include JambaseData
 
   def venues
@@ -14,23 +14,24 @@ include JambaseData
   end
 
   def select_venue
+
     events = get_events_for_venue(params[:id])
     @events = []
 
     events.each do |event|
-      # This is an issue -- user needs to be assigned on event creation, not after the fact
       new_event = Event.new
       new_event.user = current_user
       new_event.artist = Artist.find_or_create_by(name: event[:artist])
       new_event.venue = Venue.find_by(jambase_id: params[:id])
-      # new_event.user = current_user
+      new_event.date = event[:date]
       new_event.save
       @events << new_event
     end
 
-    @stuff = @events
+    @events.each do |event|
+      get_artist_info(event.artist.name)
+    end
 
-    # render 'events/index'
     redirect_to '/events/rate'
   end
 
