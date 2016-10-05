@@ -17,18 +17,10 @@
 <% end %>
 
 <% if @venues %>
-	<table>
-	<tr>
-		<th>Name</td>
-		<th>Address</td>
-		<th>ID</th>
-	</tr>
-	<% @venues.each do |venue| %>
-	<tr>
-		<td><%= link_to venue[:name], jambase_select_venue_path(venue[:jambase_id]) %></td>
-		<td><%= venue[:address] %></td>
-		<td><%= venue[:jambase_id] %></td>
-	</tr>
-	<% end %>
-	</table>
+	<div class="sub-element">
+		<% @venues.each do |venue| %>
+		<%= render partial: "events/single_venue", locals: {venue: venue} %>
+		<% end %>
+	</div>
+	
 <% end %>
