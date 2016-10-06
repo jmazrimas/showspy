@@ -1,4 +1,5 @@
 <tr>
+	<td><iframe src=<%= "https://embed.spotify.com/?uri=spotify:track:#{event.artist.tracks.first.spotify_id}" %> width="80" height="80" frameborder="0" allowtransparency="true"></iframe></td>
 	<td><%= event.artist.name %></td>
 	<td><%= event.date.strftime("%b %d %Y") %></td>
 	<td><%= score %>%</td>

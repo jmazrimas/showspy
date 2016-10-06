@@ -25,9 +25,8 @@ body {
 }
 
 h1#main-header {
-	font-family: 'Quicksand', sans-serif;
-	/*font-size: 10em;*/
-	font-size: 16vw;
+	/*font-family: 'Quicksand', sans-serif;*/
+	font-size: 13vw;
 	color: white;
 	text-align: center;
 	margin-top: .1em;
