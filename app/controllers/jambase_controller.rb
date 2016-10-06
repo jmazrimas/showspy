@@ -31,7 +31,7 @@ include JambaseData
     end
 
     @events.each do |event|
-      get_artist_info(event.artist.name)
+      event.destroy if !get_artist_info(event.artist.name)
     end
 
     redirect_to '/events/rate'
