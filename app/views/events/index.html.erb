@@ -27,6 +27,7 @@
 
 <% if @rated_events %>
 	<div class="sub-element">
+	<% if @venue %>
 		<div class="sub-element-title">Events for <%= @venue.name %></div>
 		<table>
 		<tr>
@@ -39,5 +40,8 @@
 			<%= render partial: "events/single_event", locals: {event: event, score: score} if i < 5 %>
 			<% end %>
 		</table>
+	<% else %>
+		<div class="sub-element-title">Sorry, no event matches</div>
+	<% end %>
 	</div>
 <% end %>

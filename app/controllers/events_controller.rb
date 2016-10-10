@@ -9,7 +9,9 @@ before_action :check_spotify_token, only: [:rate, :get_ratings]
   def rate
 
     @rated_events = get_ratings
-    @venue = @rated_events.first[0].venue
+    if @rated_events.length > 0
+      @venue = @rated_events.first[0].venue
+    end
 
     render 'events/index' 
 
