@@ -77,7 +77,7 @@ module SpotifyData
 
     response  = JSON.parse(api_call("https://api.spotify.com/","v1/search",params))
 
-    if !response['error']
+    if !response['error'] && response['artists']['items'][0]['id']
       artist = Artist.find_or_create_by(name: artist_name)
       artist.spotify_id = response['artists']['items'][0]['id']
       artist.genre_list = response['artists']['items'][0]['genres']
