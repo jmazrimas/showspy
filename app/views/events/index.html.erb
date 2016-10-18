@@ -16,13 +16,20 @@
 	</div>
 <% end %>
 
-<% if @venues %>
+<% if @venues && @venues.length > 0 %>
 	<div class="sub-element">
 		<% @venues.each do |venue| %>
 		<%= render partial: "events/single_venue", locals: {venue: venue} %>
 		<% end %>
 	</div>
-	
+<% end %>
+
+<% if flash[:errors] %>
+  <div class="sub-element">
+  <% flash[:errors].each do |error| %>
+    <p class="error"> <%= error %> </p>
+  <% end %>
+  </div>
 <% end %>
 
 <% if @rated_events %>
