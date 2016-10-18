@@ -11,7 +11,7 @@ include JambaseData
     end
 
     if @venues.length == 0
-      @errors = ['No venues found']
+      flash[:errors] = ['No venues found']
     end
 
     render 'events/index' 
