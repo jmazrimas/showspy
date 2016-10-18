@@ -10,6 +10,10 @@ include JambaseData
       @venues << Venue.find_or_create_by(name: venue[:venue_name], address: venue[:address] ,jambase_id: venue[:id] )
     end
 
+    if @venues.length == 0
+      @errors = ['No venues found']
+    end
+
     render 'events/index' 
   end
 
