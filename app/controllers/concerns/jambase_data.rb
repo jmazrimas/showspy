@@ -15,16 +15,17 @@ module JambaseData
 
     results = JSON.parse(api_call(url, endpoint, params))['Venues']
 
+    venues=[]
+
     if results
       venues=[]
       results.each { |v| venues << {venue_name: v['Name'], address: clean_venue_address(v), id: v['Id']} }
       venues
     end
 
-    # venues = []
     # venues << {venue_name: 'Empty Bottle', address: '1035 N Western Ave , Chicago', id: 296}
     # venues << {venue_name: 'Empty Bottle Saloon', address: '30 West Main Street, Middletown', id: 125443}
-    # venues 
+    venues 
 
   end
 
