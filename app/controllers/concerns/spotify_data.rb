@@ -77,11 +77,9 @@ module SpotifyData
 
     response  = JSON.parse(api_call("https://api.spotify.com/","v1/search",params))
 
+
     if !response['error'] && response['artists']['items'].length > 0
-      artist = Artist.find_or_create_by(name: artist_name)
-      artist.spotify_id = response['artists']['items'][0]['id']
-      artist.genre_list = response['artists']['items'][0]['genres']
-      artist.save
+      artist = enrich_artist(artist_name, response)
     else
       artist = nil
     end
@@ -93,6 +91,15 @@ module SpotifyData
 
     artist
 
+  end
+
+  def enrich_artist(artist_name, api_response)
+    artist = Artist.find_or_create_by(name: artist_name)
+    artist.spotify_id = api_response['artists']['items'][0]['id']
+    artist.genre_list = api_response['artists']['items'][0]['genres']
+    artist.save
+
+    artist
   end
 
   # can't test b/c it requires auth
