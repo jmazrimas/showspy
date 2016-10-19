@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   let(:artist1) {Artist.new(name:"BluesBand", genre_list: ["blues", "rock", "hipster"])}
   let(:artist2) {Artist.new(name:"RapRock", genre_list: ["rock", "hip-hop"])}
   let(:user1) {
-    u = User.new(uid: "xyz")
+    u = User.new(uid: "xyz", token_expires_at: Time.now.utc-1000)
     u.artists << artist1
     u.artists << artist2
     u
@@ -31,6 +31,8 @@ RSpec.describe User, type: :model do
     expect(user1.score_track_genres(["rock","country"])).to eq(40)
   end
 
-  
+  it "can verify its token is expiring" do
+    expect(user1.token_expiring?).to eq(true)
+  end
 
 end
